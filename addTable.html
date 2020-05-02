@@ -20,7 +20,7 @@
                 <h1>The Irish Haitian</h1>
                 <h3>Island Comfort Food from the Old and New Worlds!</h3>
                 <hr>
-                <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View
+                <a href="/"><button class="btn btn-danger btn-lg" id="viewTables"><span class="fa fa-eye"></span> View
                         Tables</button></a>
             </div>
             <div class="row">
@@ -64,20 +64,40 @@
 
         <script type="text/javascript">
 
-            $("#add-btn").on("click", function (event) {
+//----------VIEWTABLES BUTTTON
+            $("#viewTables").on("click", function (event) {
                 event.preventDefault();
-                var newTable = {
-                    name: $("#name").val().trim(),
-                    role: $("#phoneNumber").val().trim(),
-                    age: $("#email").val().trim(),
-                };
 
-                $.post("/api/addTable", addTable)
-                    .then(function (data) {
-                        console.log("add.html", data); //console logging new data
-                        alert("Adding a new table...");
+                //--------------ADDTABLES SUBMIT BUTTON
+                $("#add-btn").on("click", function (event) {
+                    event.preventDefault();
+                    var newTable = {
+                        name: $("#name").val().trim(),
+                        role: $("#phoneNumber").val().trim(),
+                        age: $("#email").val().trim(),
+                    };
+
+                    $.post("/api/addTable", addTable)
+                        .then(function (data) {
+                            console.log("add.html", data); //console logging new data
+                            alert("Adding a new table...");
+                        });
+
+                    $.get("/api/addTable/" + newTable, function (data) {
+                        console.log(data);
+                        if (data) {
+                            
+                            $("#name").text(data.name);
+                            $("#phoneNumber").text(data.phoneNumber);
+                            $("#email").text(data.email);
+                        } else {
+                            $("#name").text(
+                                "Please join the waiting list. ");
+                            
+                        }
+                    
                     });
-            });
+                });
         </script>
 
     </body>
