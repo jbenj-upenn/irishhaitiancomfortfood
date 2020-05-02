@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>View Tables</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>The Irish Haitian</h1>
+            <h3>Island Comfort Food from the Old and New Worlds!</h3>
+            <h4>Current Reservations and Waiting List</h4>
+            <hr>
+
+            <!--get that damn icon working-->
+            <a href="/"><button class="btn btn-primary btn-lg"><span class="fas fa-utensils"></span> Reserve a
+                    Table</button></a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $("#search-btn").on("click", function () {
+            var seeTables = $("#").val().trim();
+
+            // Using a RegEx Pattern to remove spaces from searchedCharacter
+            // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+            searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+
+            $.get("/api/characters/" + searchedCharacter, function (data) {
+                console.log(data);
+                if (data) {
+                    $("#").show();
+                    $("#name").text(data.name);
+                    $("#phoneNumber").text(data.phoneNumber);
+                    $("#email").text(data.email);
+                } else {
+                    $("#name").text(
+                        "Please join the waiting list. ");
+                    $("#").hide();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
