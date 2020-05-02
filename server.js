@@ -6,7 +6,7 @@ var path = require("path");
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = 3000 || process.env.PORT;
+var PORT = process.env.PORT || 3000; //this is  necessary for Herokuland
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +25,7 @@ var newTable = [];
 
 
 //=============================================================
-//ROUTES
+//ROUTES CREATED FOR EACH HTML FILE
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
